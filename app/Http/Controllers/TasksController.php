@@ -81,6 +81,11 @@ class TasksController extends Controller
     {
         $user = \Auth::user();
         $task = Task::find($id);
+
+ //       if($user == null || $task = null) {
+ //           return redirect('/');
+ //       }
+
         if($task->user_id == $user->id) {
         return view('tasks.show', [
             'task' => $task,
@@ -123,12 +128,10 @@ class TasksController extends Controller
             'content' => 'required|max:191',
         ]);
 
-
         $task = Task::find($id);
         $task->status = $request->status;    // add
         $task->content = $request->content;
         $task->save();
-
 
         return redirect('/');
     }
